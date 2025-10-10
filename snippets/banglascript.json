@@ -1,0 +1,72 @@
+{
+  "Variable Declaration": {
+    "prefix": "var",
+    "body": [
+      "বাক্য ${1:নাম} = ${2:\"মান\"};"
+    ],
+    "description": "Declare a variable (বাক্য)"
+  },
+  "Constant Declaration": {
+    "prefix": "const",
+    "body": [
+      "ধ্রুবক ${1:PI} = ${2:3.14};"
+    ],
+    "description": "Declare a constant (ধ্রুবক)"
+  },
+  "Function": {
+    "prefix": "func",
+    "body": [
+      "অনুষ্ঠান ${1:যোগ}( ${2:ক}, ${3:খ} ) {",
+      "\t${4:প্রেরণ} ${2:ক} + ${3:খ};",
+      "}"
+    ],
+    "description": "Create a function (অনুষ্ঠান)"
+  },
+  "If-Else": {
+    "prefix": "if",
+    "body": [
+      "যদি ( ${1:শর্ত} ) {",
+      "\t${2:কোড}",
+      "} নাহলে {",
+      "\t${3:অন্য_কোড}",
+      "}"
+    ],
+    "description": "If-else statement (যদি...নাহলে)"
+  },
+  "For Loop": {
+    "prefix": "for",
+    "body": [
+      "জন্য ( বাক্য ${1:i} = ${2:0}; ${1:i} < ${3:5}; ${1:i}++ ) {",
+      "\t${4:কোড}",
+      "}"
+    ],
+    "description": "For loop (জন্য)"
+  },
+  "While Loop": {
+    "prefix": "while",
+    "body": [
+      "যখন ( ${1:শর্ত} ) {",
+      "\t${2:কোড}",
+      "}"
+    ],
+    "description": "While loop (যখন)"
+  },
+  "Hello World": {
+    "prefix": "hello",
+    "body": [
+      "লিখো(\"হ্যালো, বিশ্ব!\");"
+    ],
+    "description": "Hello World template"
+  },
+  "Class": {
+    "prefix": "class",
+    "body": [
+      "শ্রেণী ${1:মানুষ} {",
+      "\tগঠন( ${2:নাম} ) {",
+      "\t\tএটি.${2:নাম} = ${2:নাম};",
+      "\t}",
+      "}"
+    ],
+    "description": "Class declaration (শ্রেণী)"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "BanglaScript",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#functions"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#identifiers"
+    },
+    {
+      "include": "#operators"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.banglascript",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.banglascript",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.banglascript",
+      "match": "\"(?:\\\\.|[^\\\\\"\\n])*\""
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.banglascript",
+          "match": "\\b(বাক্য|সংখ্যা|চলক|ধ্রুবক|পরিবর্তনশীল|অনুষ্ঠান|ফাংশন|প্রেরণ|ফেরত|যদি|নাহলে|অন্যথায়|নাহলে_যদি|যখন|জন্য|প্রতিটি|করো|থামাও|চালিয়ে_যাও|নতুন|শ্রেণী|ক্লাস|গঠন|এটি|বিস্তৃত|স্ট্যাটিক|স্থির|চেষ্টা|ধরো|অবশেষে|ফেলা|অপেক্ষা|অ্যাসিঙ্ক|সুইচ|কেস|ডিফল্ট|আমদানি|রপ্তানি|থেকে|হিসেবে|মুছো|ইন|অফ|সত্য|মিথ্যা|শূন্য|অনির্ধারিত)\\b"
+        },
+        {
+          "name": "keyword.operator.banglascript",
+          "match": "\\b(লিখো|ছাপাও|সমস্যা_লিখো|সতর্কতা|তথ্য)\\b"
+        }
+      ]
+    },
+    "functions": {
+      "name": "entity.name.function.banglascript",
+      "match": "\\b([\\p{Bengali}]+)\\s*\\("
+    },
+    "numbers": {
+      "name": "constant.numeric.banglascript",
+      "match": "\\b\\d+(?:\\.\\d+)?\\b"
+    },
+    "identifiers": {
+      "name": "variable.other.banglascript",
+      "match": "\\b([\\p{Bengali}]+|[a-zA-Z_$][a-zA-Z0-9_$]*)\\b"
+    },
+    "operators": {
+      "name": "keyword.operator.banglascript",
+      "match": "[+\\-*/=<>!&|~^%=]"
+    }
+  }
+}
