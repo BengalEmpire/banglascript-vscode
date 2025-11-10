@@ -1,0 +1,57 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nvie/vscode-extension-samples/main/color-theme-sample/schemas/color-theme.json",
+  "name": "BanglaScript Light",
+  "type": "light",
+  "colors": {
+    "editor.background": "#ffffff",
+    "editor.foreground": "#000000",
+    "editor.lineHighlightBackground": "#f0f0f0",
+    "editorCursor.foreground": "#00D4AA"
+  },
+  "tokenColors": [
+    {
+      "scope": "comment.line.double-slash.banglascript, comment.block.banglascript",
+      "settings": {
+        "foreground": "#059669",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": "string.quoted.double.banglascript",
+      "settings": {
+        "foreground": "#047857"
+      }
+    },
+    {
+      "scope": "constant.numeric.banglascript",
+      "settings": {
+        "foreground": "#D97706"
+      }
+    },
+    {
+      "scope": "keyword.control.banglascript, keyword.operator.banglascript",
+      "settings": {
+        "foreground": "#7C3AED",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "entity.name.function.banglascript",
+      "settings": {
+        "foreground": "#B45309"
+      }
+    },
+    {
+      "scope": "variable.other.banglascript",
+      "settings": {
+        "foreground": "#2563EB"
+      }
+    },
+    {
+      "scope": ["keyword.operator.banglascript", "punctuation.separator.banglascript"],
+      "settings": {
+        "foreground": "#DC2626"
+      }
+    }
+  ]
+}

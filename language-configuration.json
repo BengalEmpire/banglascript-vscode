@@ -24,12 +24,8 @@
   ],
   "folding": {
     "markers": {
-      "start": new RegExp("^\\s*অনুষ্ঠান\\s+."),
-      "end": "^\\s*\\}"
+      "start": new RegExp("^\\s*//\\s*#region\\b"),
+      "end": new RegExp("^\\s*//\\s*#endregion\\b")
     }
-  },
-  "indentationRules": {
-    "increaseIndentPattern": "^\\s*(যদি|অনুষ্ঠান|যখন|জন্য|চেষ্টা|শ্রেণী)\\b",
-    "decreaseIndentPattern": "^\\s*(নাহলে|অবশেষে|})"
   }
 }
