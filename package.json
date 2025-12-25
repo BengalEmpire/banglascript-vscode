@@ -1,13 +1,14 @@
 {
   "name": "banglascript",
-  "displayName": "BanglaScript",
-  "description": "Bangla programming language support - বাংলায় কোডিং করুন!",
-  "version": "1.0.0",
+  "displayName": "BanglaScript - বাংলায় কোডিং",
+  "description": "প্রথম বাংলা প্রোগ্রামিং ভাষার জন্য সম্পূর্ণ VSCode সাপোর্ট। Syntax highlighting, IntelliSense, snippets, themes, এবং আরও অনেক কিছু!",
+  "version": "2.0.0",
   "publisher": "BengalEmpire",
   "author": {
     "name": "Mahmud Rahman",
     "email": "dev@devplus.fun"
   },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/BengalEmpire/banglascript-vscode"
@@ -17,32 +18,53 @@
   },
   "homepage": "https://github.com/BengalEmpire/banglascript-vscode#readme",
   "icon": "icons/extension-icon.png",
+  "galleryBanner": {
+    "color": "#1A7F37",
+    "theme": "dark"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },
   "categories": [
     "Programming Languages",
     "Snippets",
-    "Other"
+    "Themes",
+    "Linters",
+    "Formatters",
+    "Education"
   ],
   "keywords": [
     "bangla",
     "bengali",
     "banglascript",
     "বাংলা",
+    "বাংলাস্ক্রিপ্ট",
     "programming",
-    "language"
+    "language",
+    "javascript",
+    "transpiler",
+    "education",
+    "বাংলাদেশ",
+    "bangladesh",
+    "code in bangla"
   ],
   "activationEvents": [
-    "onLanguage:banglascript"
+    "onLanguage:banglascript",
+    "workspaceContains:**/*.bjs"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "languages": [
       {
         "id": "banglascript",
-        "aliases": ["BanglaScript", "bjs"],
-        "extensions": [".bjs"],
+        "aliases": [
+          "BanglaScript",
+          "বাংলাস্ক্রিপ্ট",
+          "bjs"
+        ],
+        "extensions": [
+          ".bjs"
+        ],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./icons/file_type_bjs.svg",
@@ -72,12 +94,12 @@
     ],
     "themes": [
       {
-        "label": "BanglaScript Dark",
+        "label": "BanglaScript Dark Pro",
         "uiTheme": "vs-dark",
         "path": "./themes/BanglaScriptTheme.json"
       },
       {
-        "label": "BanglaScript Light",
+        "label": "BanglaScript Light Pro",
         "uiTheme": "vs",
         "path": "./themes/BanglaScriptLight.json"
       }
@@ -88,23 +110,144 @@
         "banglascript.enableSnippets": {
           "type": "boolean",
           "default": true,
-          "description": "Enable BanglaScript code snippets"
+          "description": "স্নিপেট সক্রিয় করুন (Enable snippets)"
         },
         "banglascript.showWelcomeMessage": {
           "type": "boolean",
           "default": true,
-          "description": "Show welcome message when opening .bjs files"
+          "description": ".bjs ফাইল খোলার সময় স্বাগত বার্তা দেখান (Show welcome message)"
+        },
+        "banglascript.enableDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "description": "কোড ডায়াগনস্টিকস সক্রিয় করুন (Enable code diagnostics)"
+        },
+        "banglascript.suggestBanglaKeywords": {
+          "type": "boolean",
+          "default": true,
+          "description": "JavaScript কীওয়ার্ড ব্যবহার করলে বাংলা সাজেশন দিন (Suggest Bengali alternatives)"
+        },
+        "banglascript.autoComplete": {
+          "type": "boolean",
+          "default": true,
+          "description": "অটো-কমপ্লিট সক্রিয় করুন (Enable auto-complete)"
         }
       }
     },
     "commands": [
       {
         "command": "banglascript.helloWorld",
-        "title": "BanglaScript: Create Hello World Template"
+        "title": "হ্যালো ওয়ার্ল্ড টেমপ্লেট তৈরি করুন",
+        "shortTitle": "Hello World",
+        "category": "BanglaScript",
+        "icon": "$(rocket)"
       },
       {
         "command": "banglascript.showDocumentation",
-        "title": "BanglaScript: Show Documentation"
+        "title": "ডকুমেন্টেশন দেখুন",
+        "shortTitle": "Documentation",
+        "category": "BanglaScript",
+        "icon": "$(book)"
+      },
+      {
+        "command": "banglascript.createNewFile",
+        "title": "নতুন ফাইল তৈরি করুন",
+        "shortTitle": "New File",
+        "category": "BanglaScript",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "banglascript.runFile",
+        "title": "ফাইল চালান",
+        "shortTitle": "Run",
+        "category": "BanglaScript",
+        "icon": "$(play)"
+      },
+      {
+        "command": "banglascript.showKeywordReference",
+        "title": "কীওয়ার্ড রেফারেন্স দেখুন",
+        "shortTitle": "Keywords",
+        "category": "BanglaScript",
+        "icon": "$(list-unordered)"
+      },
+      {
+        "command": "banglascript.convertDocumentToBangla",
+        "title": "JavaScript কীওয়ার্ড বাংলায় রূপান্তর করুন",
+        "shortTitle": "Convert to Bangla",
+        "category": "BanglaScript",
+        "icon": "$(symbol-keyword)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == banglascript",
+          "command": "banglascript.runFile",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceLangId == banglascript",
+          "command": "banglascript.runFile",
+          "group": "1_run"
+        },
+        {
+          "when": "resourceLangId == banglascript",
+          "command": "banglascript.convertDocumentToBangla",
+          "group": "2_convert"
+        },
+        {
+          "when": "resourceLangId == banglascript",
+          "command": "banglascript.showKeywordReference",
+          "group": "3_help"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "banglascript.helloWorld",
+          "when": "true"
+        },
+        {
+          "command": "banglascript.showDocumentation",
+          "when": "true"
+        },
+        {
+          "command": "banglascript.createNewFile",
+          "when": "true"
+        },
+        {
+          "command": "banglascript.runFile",
+          "when": "resourceLangId == banglascript"
+        },
+        {
+          "command": "banglascript.showKeywordReference",
+          "when": "true"
+        },
+        {
+          "command": "banglascript.convertDocumentToBangla",
+          "when": "resourceLangId == banglascript"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "banglascript.runFile",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "resourceLangId == banglascript"
+      },
+      {
+        "command": "banglascript.showDocumentation",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d",
+        "when": "resourceLangId == banglascript"
+      },
+      {
+        "command": "banglascript.createNewFile",
+        "key": "ctrl+shift+n",
+        "mac": "cmd+shift+n",
+        "when": "true"
       }
     ]
   },

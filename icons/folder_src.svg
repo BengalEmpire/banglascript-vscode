@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <path d="M2 8 L2 6 Q2 4 4 4 L12 4 L14 7 L28 7 Q30 7 30 9 L30 26 Q30 28 28 28 L4 28 Q2 28 2 26 L2 8 Z" fill="#8B949E"/>
+  <path d="M2 10 L30 10 L30 26 Q30 28 28 28 L4 28 Q2 28 2 26 L2 10 Z" fill="#C9D1D9" opacity="0.9"/>
+  <text x="16" y="22" text-anchor="middle" font-family="Consolas, Monaco, monospace" font-weight="700" font-size="9" fill="#484F58">SRC</text>
+</svg>

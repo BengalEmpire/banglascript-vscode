@@ -1,0 +1,47 @@
+{
+    "hidesExplorerArrows": false,
+    "fonts": [],
+    "iconDefinitions": {
+        "_file_bjs": {
+            "iconPath": "./file_type_bjs.svg"
+        },
+        "_folder_banglascript": {
+            "iconPath": "./folder_banglascript.svg"
+        },
+        "_folder_banglascript_open": {
+            "iconPath": "./folder_banglascript_open.svg"
+        },
+        "_folder_src": {
+            "iconPath": "./folder_src.svg"
+        },
+        "_folder_src_open": {
+            "iconPath": "./folder_src_open.svg"
+        },
+        "_folder_build": {
+            "iconPath": "./folder_build.svg"
+        },
+        "_folder_build_open": {
+            "iconPath": "./folder_build_open.svg"
+        }
+    },
+    "fileExtensions": {
+        "bjs": "_file_bjs"
+    },
+    "fileNames": {
+        "banglascript.config.js": "_file_bjs",
+        "banglascript.config.json": "_file_bjs",
+        ".bjsrc": "_file_bjs",
+        ".bjsrc.json": "_file_bjs"
+    },
+    "languageIds": {
+        "banglascript": "_file_bjs"
+    },
+    "folderNames": {
+        "banglascript": "_folder_banglascript",
+        "bjs": "_folder_banglascript"
+    },
+    "folderNamesExpanded": {
+        "banglascript": "_folder_banglascript_open",
+        "bjs": "_folder_banglascript_open"
+    }
+}

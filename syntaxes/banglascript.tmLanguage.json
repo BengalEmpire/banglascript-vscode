@@ -1,6 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "BanglaScript",
+  "scopeName": "source.banglascript",
+  "fileTypes": [
+    "bjs"
+  ],
   "patterns": [
     {
       "include": "#comments"
@@ -9,10 +13,55 @@
       "include": "#strings"
     },
     {
-      "include": "#keywords"
+      "include": "#template-strings"
+    },
+    {
+      "include": "#regex"
+    },
+    {
+      "include": "#keywords-control"
+    },
+    {
+      "include": "#keywords-declaration"
+    },
+    {
+      "include": "#keywords-class"
+    },
+    {
+      "include": "#keywords-async"
+    },
+    {
+      "include": "#keywords-module"
+    },
+    {
+      "include": "#keywords-console"
+    },
+    {
+      "include": "#keywords-dom"
+    },
+    {
+      "include": "#keywords-values"
+    },
+    {
+      "include": "#keywords-error"
+    },
+    {
+      "include": "#keywords-operators-word"
+    },
+    {
+      "include": "#keywords-array-methods"
+    },
+    {
+      "include": "#keywords-string-methods"
+    },
+    {
+      "include": "#keywords-math"
     },
     {
       "include": "#functions"
+    },
+    {
+      "include": "#numbers-bengali"
     },
     {
       "include": "#numbers"
@@ -22,6 +71,9 @@
     },
     {
       "include": "#operators"
+    },
+    {
+      "include": "#punctuation"
     }
   ],
   "repository": {
@@ -39,36 +91,383 @@
       ]
     },
     "strings": {
-      "name": "string.quoted.double.banglascript",
-      "match": "\"(?:\\\\.|[^\\\\\"\\n])*\""
-    },
-    "keywords": {
       "patterns": [
         {
-          "name": "keyword.control.banglascript",
-          "match": "\\b(বাক্য|সংখ্যা|চলক|ধ্রুবক|পরিবর্তনশীল|অনুষ্ঠান|ফাংশন|প্রেরণ|ফেরত|যদি|নাহলে|অন্যথায়|নাহলে_যদি|যখন|জন্য|প্রতিটি|করো|থামাও|চালিয়ে_যাও|নতুন|শ্রেণী|ক্লাস|গঠন|এটি|বিস্তৃত|স্ট্যাটিক|স্থির|চেষ্টা|ধরো|অবশেষে|ফেলা|অপেক্ষা|অ্যাসিঙ্ক|সুইচ|কেস|ডিফল্ট|আমদানি|রপ্তানি|থেকে|হিসেবে|মুছো|ইন|অফ|সত্য|মিথ্যা|শূন্য|অনির্ধারিত)\\b"
+          "name": "string.quoted.double.banglascript",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.banglascript",
+              "match": "\\\\."
+            }
+          ]
         },
         {
-          "name": "keyword.operator.banglascript",
-          "match": "\\b(লিখো|ছাপাও|সমস্যা_লিখো|সতর্কতা|তথ্য)\\b"
+          "name": "string.quoted.single.banglascript",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.banglascript",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "template-strings": {
+      "name": "string.template.banglascript",
+      "begin": "`",
+      "end": "`",
+      "patterns": [
+        {
+          "name": "constant.character.escape.banglascript",
+          "match": "\\\\."
+        },
+        {
+          "name": "meta.template.expression.banglascript",
+          "begin": "\\$\\{",
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "$self"
+            }
+          ]
+        }
+      ]
+    },
+    "regex": {
+      "patterns": [
+        {
+          "name": "string.regexp.banglascript",
+          "begin": "(?<=[=(:,\\[!&|?])\\s*(/)",
+          "end": "(/)[gimsuvy]*",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.begin.banglascript"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.end.banglascript"
+            }
+          }
+        }
+      ]
+    },
+    "keywords-control": {
+      "patterns": [
+        {
+          "name": "keyword.control.conditional.banglascript",
+          "match": "\\b(যদি|নাহলে|নাহলে_যদি|অন্যথায়|সুইচ|কেস|সাধারণ|ডিফল্ট|ক্ষেত্র|পরিবর্তন)\\b"
+        },
+        {
+          "name": "keyword.control.loop.banglascript",
+          "match": "\\b(জন্য|যখন|করো|প্রতিটি|পুনরাবৃত্তি)\\b"
+        },
+        {
+          "name": "keyword.control.flow.banglascript",
+          "match": "\\b(থামাও|চালিয়ে_যাও|প্রেরণ|ফেরত|ফিরিয়ে_দাও)\\b"
+        }
+      ]
+    },
+    "keywords-declaration": {
+      "patterns": [
+        {
+          "name": "storage.type.banglascript",
+          "match": "\\b(সংখ্যা|শব্দ|বাক্য|চলক|ধ্রুবক|পরিবর্তনশীল|ব্যাক্তি)\\b"
+        },
+        {
+          "name": "storage.type.function.banglascript",
+          "match": "\\b(অনুষ্ঠান|ফাংশন)\\b"
+        }
+      ]
+    },
+    "keywords-class": {
+      "patterns": [
+        {
+          "name": "storage.type.class.banglascript",
+          "match": "\\b(ক্লাস|শ্রেণী|গঠন|নির্মাতা)\\b"
+        },
+        {
+          "name": "keyword.operator.new.banglascript",
+          "match": "\\b(নতুন)\\b"
+        },
+        {
+          "name": "storage.modifier.banglascript",
+          "match": "\\b(বিস্তৃত|সম্প্রসারিত|স্ট্যাটিক|স্থির|পাও|সেট|নির্ধারণ)\\b"
+        },
+        {
+          "name": "variable.language.this.banglascript",
+          "match": "\\b(এটি|এই)\\b"
+        },
+        {
+          "name": "variable.language.super.banglascript",
+          "match": "\\b(সুপার|অতিক্লাস)\\b"
+        }
+      ]
+    },
+    "keywords-async": {
+      "patterns": [
+        {
+          "name": "storage.type.async.banglascript",
+          "match": "\\b(অ্যাসিঙ্ক|অসমকালীন)\\b"
+        },
+        {
+          "name": "keyword.control.await.banglascript",
+          "match": "\\b(অপেক্ষা|অপেক্ষা_করো)\\b"
+        },
+        {
+          "name": "support.class.promise.banglascript",
+          "match": "\\b(প্রমিজ|প্রতিশ্রুতি)\\b"
+        },
+        {
+          "name": "support.function.promise.banglascript",
+          "match": "\\b(তারপর|তখন|ধরা_পড়লে)\\b"
+        }
+      ]
+    },
+    "keywords-module": {
+      "patterns": [
+        {
+          "name": "keyword.control.import.banglascript",
+          "match": "\\b(আমদানি|আনো)\\b"
+        },
+        {
+          "name": "keyword.control.export.banglascript",
+          "match": "\\b(রপ্তানি|রফতানি|পাঠাও)\\b"
+        },
+        {
+          "name": "keyword.control.from.banglascript",
+          "match": "\\b(থেকে)\\b"
+        },
+        {
+          "name": "keyword.control.as.banglascript",
+          "match": "\\b(হিসেবে|হিসাবে|যেমন)\\b"
+        }
+      ]
+    },
+    "keywords-console": {
+      "patterns": [
+        {
+          "name": "support.function.console.banglascript",
+          "match": "\\b(লিখো|ছাপাও|প্রিন্ট|দেখাও|সমস্যা_লিখো|ত্রুটি_লিখো|লিখো_সতর্কতা|লিখো_সাবধান|লিখো_তথ্য|পরিষ্কার_করো)\\b"
+        }
+      ]
+    },
+    "keywords-dom": {
+      "patterns": [
+        {
+          "name": "support.variable.dom.banglascript",
+          "match": "\\b(ডকুমেন্ট|দস্তাবেজ|নথি|উইন্ডো|জানালা|বডি|শিরোনাম|এলিমেন্ট|উপাদান)\\b"
+        },
+        {
+          "name": "support.function.dom.banglascript",
+          "match": "\\b(আইডি_দ্বারা_পাও|শ্রেণী_দ্বারা_পাও|ট্যাগ_দ্বারা_পাও|সিলেক্টর_দ্বারা_পাও|সব_সিলেক্টর_দ্বারা_পাও|ইভেন্ট_শুনো|ইভেন্ট_যোগ_করো|ইভেন্ট_মুছো|ইভেন্ট_অপসারণ_করো|তৈরি_করো|যোগ_করো|মুছ_ফেলো|সেট_করো|যাপাও|ক্লাস_যোগ_করো|ক্লাস_মুছো|ক্লাস_টগল_করো|স্টাইল_প্রয়োগ_করো|বিষয়বস্তু_পরিবর্তন_করো|টেক্সট_পরিবর্তন_করো)\\b"
+        },
+        {
+          "name": "support.function.browser.banglascript",
+          "match": "\\b(সতর্কতা_বক্স|সতর্কবার্তা|নিশ্চিত|নিশ্চিত_করো|ইনপুট|জিজ্ঞাসা)\\b"
+        }
+      ]
+    },
+    "keywords-values": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.true.banglascript",
+          "match": "\\b(সত্য)\\b"
+        },
+        {
+          "name": "constant.language.boolean.false.banglascript",
+          "match": "\\b(মিথ্যা)\\b"
+        },
+        {
+          "name": "constant.language.null.banglascript",
+          "match": "\\b(শূন্য|শুন্য)\\b"
+        },
+        {
+          "name": "constant.language.undefined.banglascript",
+          "match": "\\b(অনির্ধারিত|অসংজ্ঞায়িত)\\b"
+        }
+      ]
+    },
+    "keywords-error": {
+      "patterns": [
+        {
+          "name": "keyword.control.trycatch.banglascript",
+          "match": "\\b(চেষ্টা|চেষ্টা_করো|ধরো|ধরা|অবশেষে|শেষে)\\b"
+        },
+        {
+          "name": "keyword.control.throw.banglascript",
+          "match": "\\b(ফেলা|নিক্ষেপ|ছুড়ে_দাও)\\b"
+        }
+      ]
+    },
+    "keywords-operators-word": {
+      "patterns": [
+        {
+          "name": "keyword.operator.typeof.banglascript",
+          "match": "\\b(টাইপ|ধরন|কিসের)\\b"
+        },
+        {
+          "name": "keyword.operator.instanceof.banglascript",
+          "match": "\\b(ইনস্ট্যান্স|উদাহরণ)\\b"
+        },
+        {
+          "name": "keyword.operator.expression.in.banglascript",
+          "match": "\\b(ইন|ভিতরে|মধ্যে)\\b"
+        },
+        {
+          "name": "keyword.operator.expression.of.banglascript",
+          "match": "\\b(অফ|মধ্য|এর)\\b"
+        },
+        {
+          "name": "keyword.operator.delete.banglascript",
+          "match": "\\b(মুছো)\\b"
+        },
+        {
+          "name": "keyword.operator.logical.banglascript",
+          "match": "\\b(এবংএবং|অথবাঅথবা|না|নয়)\\b"
+        },
+        {
+          "name": "keyword.operator.comparison.banglascript",
+          "match": "\\b(সমান|অসমান|বড়|ছোট|বড়_বা_সমান|ছোট_বা_সমান)\\b"
+        }
+      ]
+    },
+    "keywords-array-methods": {
+      "patterns": [
+        {
+          "name": "support.function.array.banglascript",
+          "match": "\\b(ঠেলো|ঢোকাও|তোলা|বের_করো|শিফট|প্রথম_সরাও|আনশিফট|প্রথমে_যোগ|কেটে_দাও|কাটো|খুঁজে|খুঁজো|খুঁজে_সূচক|সূচক_খুঁজো|ম্যাপ|ছাঁকনি|ফিল্টার|হ্রাস|জোড়া|ভাগ|সাজাও|উল্টাও|প্রতিটিতে|কিছু|সব|অন্তর্ভুক্ত)\\b"
+        }
+      ]
+    },
+    "keywords-string-methods": {
+      "patterns": [
+        {
+          "name": "support.function.string.banglascript",
+          "match": "\\b(দৈর্ঘ্য|বড়হাতের|ছোটহাতের|ছাঁটাই|প্রতিস্থাপন|খণ্ড|উপস্ট্রিং|সূচকে|শেষ_সূচক)\\b"
+        }
+      ]
+    },
+    "keywords-math": {
+      "patterns": [
+        {
+          "name": "support.class.math.banglascript",
+          "match": "\\b(গণিত)\\b"
+        },
+        {
+          "name": "support.function.math.banglascript",
+          "match": "\\b(এলোমেলো_সংখ্যা|পাই|বর্গমূল|শক্তি|পরম|সিলিং|ফ্লোর|রাউন্ড|সর্বোচ্চ|সর্বনিম্ন)\\b"
         }
       ]
     },
     "functions": {
-      "name": "entity.name.function.banglascript",
-      "match": "\\b([\\p{Bengali}]+)\\s*\\("
+      "patterns": [
+        {
+          "name": "entity.name.function.banglascript",
+          "match": "([\\p{Bengali}a-zA-Z_][\\p{Bengali}a-zA-Z0-9_]*)\\s*(?=\\()",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.banglascript"
+            }
+          }
+        }
+      ]
+    },
+    "numbers-bengali": {
+      "patterns": [
+        {
+          "name": "constant.numeric.bengali.banglascript",
+          "match": "[০-৯]+(?:\\.[০-৯]+)?"
+        }
+      ]
     },
     "numbers": {
-      "name": "constant.numeric.banglascript",
-      "match": "\\b\\d+(?:\\.\\d+)?\\b"
+      "patterns": [
+        {
+          "name": "constant.numeric.decimal.banglascript",
+          "match": "\\b\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\b"
+        },
+        {
+          "name": "constant.numeric.hex.banglascript",
+          "match": "\\b0[xX][0-9a-fA-F]+\\b"
+        },
+        {
+          "name": "constant.numeric.binary.banglascript",
+          "match": "\\b0[bB][01]+\\b"
+        },
+        {
+          "name": "constant.numeric.octal.banglascript",
+          "match": "\\b0[oO][0-7]+\\b"
+        }
+      ]
     },
     "identifiers": {
-      "name": "variable.other.banglascript",
-      "match": "\\b([\\p{Bengali}]+|[a-zA-Z_$][a-zA-Z0-9_$]*)\\b"
+      "patterns": [
+        {
+          "name": "variable.other.banglascript",
+          "match": "[\\p{Bengali}a-zA-Z_$][\\p{Bengali}a-zA-Z0-9_$]*"
+        }
+      ]
     },
     "operators": {
-      "name": "keyword.operator.banglascript",
-      "match": "[+\\-*/=<>!&|~^%=]"
+      "patterns": [
+        {
+          "name": "keyword.operator.assignment.banglascript",
+          "match": "=(?!=)"
+        },
+        {
+          "name": "keyword.operator.comparison.banglascript",
+          "match": "===|!==|==|!=|<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.arithmetic.banglascript",
+          "match": "\\+\\+|--|\\+|-|\\*\\*|\\*|/|%"
+        },
+        {
+          "name": "keyword.operator.logical.banglascript",
+          "match": "&&|\\|\\||!"
+        },
+        {
+          "name": "keyword.operator.ternary.banglascript",
+          "match": "\\?|:"
+        },
+        {
+          "name": "keyword.operator.spread.banglascript",
+          "match": "\\.\\.\\."
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.separator.comma.banglascript",
+          "match": ","
+        },
+        {
+          "name": "punctuation.terminator.statement.banglascript",
+          "match": ";"
+        },
+        {
+          "name": "punctuation.accessor.banglascript",
+          "match": "\\."
+        },
+        {
+          "name": "meta.brace.curly.banglascript",
+          "match": "[{}]"
+        },
+        {
+          "name": "meta.brace.square.banglascript",
+          "match": "[\\[\\]]"
+        },
+        {
+          "name": "meta.brace.round.banglascript",
+          "match": "[()]"
+        }
+      ]
     }
   }
 }

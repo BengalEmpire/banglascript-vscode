@@ -1,20 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="128"
-  height="128"
-  viewBox="0 0 128 128"
-  preserveAspectRatio="xMinYMin meet"
->
-  <!-- background -->
-  <rect width="128" height="128" fill="#e7774a"/>
-  <text
-    x="68"
-    y="92"
-    text-anchor="middle"
-    font-family="Noto Sans Bengali, 'Bangla', 'DejaVu Sans', Arial, sans-serif"
-    font-weight="700"
-    font-size="80"
-    fill="#000000"
-  >ব</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A7F37"/>
+      <stop offset="50%" style="stop-color:#2DA44E"/>
+      <stop offset="100%" style="stop-color:#3FB950"/>
+    </linearGradient>
+    <linearGradient id="overlayGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.1"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFA657"/>
+      <stop offset="100%" style="stop-color:#F78166"/>
+    </linearGradient>
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+    <filter id="innerGlow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle with shadow -->
+  <circle cx="64" cy="64" r="58" fill="url(#mainGrad)" filter="url(#dropShadow)"/>
+  
+  <!-- Overlay for depth -->
+  <circle cx="64" cy="64" r="58" fill="url(#overlayGrad)"/>
+  
+  <!-- Decorative ring -->
+  <circle cx="64" cy="64" r="52" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Code brackets background decoration -->
+  <g opacity="0.4">
+    <path d="M28 45 L18 64 L28 83" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M100 45 L110 64 L100 83" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Main Bengali character ব -->
+  <text x="64" y="78" text-anchor="middle" font-family="'Noto Sans Bengali', 'Bangla', 'Kalpurush', 'DejaVu Sans', Arial, sans-serif" font-weight="700" font-size="52" fill="#FFFFFF" filter="url(#innerGlow)">ব</text>
+  
+  <!-- JS Badge -->
+  <g transform="translate(78, 85)">
+    <rect x="0" y="0" width="32" height="20" rx="6" ry="6" fill="url(#accentGrad)"/>
+    <text x="16" y="14" text-anchor="middle" font-family="'Consolas', 'Monaco', 'Courier New', monospace" font-weight="800" font-size="10" fill="#FFFFFF">JS</text>
+  </g>
+  
+  <!-- Small decorative dots -->
+  <circle cx="38" cy="30" r="3" fill="#FFFFFF" opacity="0.5"/>
+  <circle cx="90" cy="30" r="2" fill="#FFFFFF" opacity="0.4"/>
+  <circle cx="30" cy="98" r="2" fill="#FFFFFF" opacity="0.3"/>
 </svg>

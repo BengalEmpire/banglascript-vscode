@@ -37,31 +37,101 @@ exports.activate = activate;
 exports.deactivate = deactivate;
 const vscode = __importStar(require("vscode"));
 const hoverProvider_1 = require("./providers/hoverProvider");
+const completionProvider_1 = require("./providers/completionProvider");
+const diagnosticProvider_1 = require("./providers/diagnosticProvider");
+const codeActionProvider_1 = require("./providers/codeActionProvider");
 const commands_1 = require("./commands");
+// Status bar item for BanglaScript
+let statusBarItem;
 // ==================== ACTIVATION ====================
 function activate(context) {
-    console.log('BanglaScript extension is now active!');
-    // Show welcome message
+    console.log('🇧🇩 BanglaScript extension is now active!');
+    // ==================== STATUS BAR ====================
+    statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+    statusBarItem.text = '$(code) বাংলাস্ক্রিপ্ট';
+    statusBarItem.tooltip = 'BanglaScript - বাংলায় কোডিং করুন!';
+    statusBarItem.command = 'banglascript.showDocumentation';
+    context.subscriptions.push(statusBarItem);
+    // Update status bar visibility based on active editor
+    updateStatusBar();
+    context.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(() => updateStatusBar()));
+    // ==================== WELCOME MESSAGE ====================
     const config = vscode.workspace.getConfiguration('banglascript');
     if (config.get('showWelcomeMessage')) {
-        vscode.window.showInformationMessage('🎉 BanglaScript is ready! বাংলায় কোডিং শুরু করুন!', 'Create Template', 'Documentation', "Don't Show Again").then(selection => {
-            if (selection === 'Create Template') {
-                vscode.commands.executeCommand('banglascript.helloWorld');
+        vscode.window.showInformationMessage('🎉 বাংলাস্ক্রিপ্ট সক্রিয়! বাংলায় কোডিং শুরু করুন! 🇧🇩', 'নতুন ফাইল তৈরি করুন', 'ডকুমেন্টেশন দেখুন', 'আর দেখাবেন না').then(selection => {
+            if (selection === 'নতুন ফাইল তৈরি করুন') {
+                vscode.commands.executeCommand('banglascript.createNewFile');
             }
-            else if (selection === 'Documentation') {
+            else if (selection === 'ডকুমেন্টেশন দেখুন') {
                 vscode.commands.executeCommand('banglascript.showDocumentation');
             }
-            else if (selection === "Don't Show Again") {
+            else if (selection === 'আর দেখাবেন না') {
                 config.update('showWelcomeMessage', false, true);
             }
         });
     }
-    // Register providers and commands
+    // ==================== LANGUAGE PROVIDERS ====================
+    // Hover Provider - shows keyword documentation on hover
     const hoverProvider = vscode.languages.registerHoverProvider('banglascript', (0, hoverProvider_1.createHoverProvider)());
+    // Completion Provider - IntelliSense autocomplete
+    const completionProvider = vscode.languages.registerCompletionItemProvider('banglascript', (0, completionProvider_1.createCompletionProvider)(), '.', // Trigger on dot
+    '"', // Trigger in strings
+    "'" // Trigger in strings
+    );
+    // Signature Help Provider - function parameter hints
+    const signatureProvider = vscode.languages.registerSignatureHelpProvider('banglascript', (0, completionProvider_1.createSignatureHelpProvider)(), '(', ',');
+    // Code Action Provider - quick fixes
+    const codeActionProvider = vscode.languages.registerCodeActionsProvider('banglascript', (0, codeActionProvider_1.createCodeActionProvider)(), {
+        providedCodeActionKinds: [
+            vscode.CodeActionKind.QuickFix,
+            vscode.CodeActionKind.Refactor
+        ]
+    });
+    // ==================== DIAGNOSTICS ====================
+    const diagnosticCollection = (0, diagnosticProvider_1.createDiagnosticCollection)(context);
+    // Update diagnostics on document change
+    if (vscode.window.activeTextEditor) {
+        (0, diagnosticProvider_1.updateDiagnostics)(vscode.window.activeTextEditor.document, diagnosticCollection);
+    }
+    context.subscriptions.push(vscode.workspace.onDidChangeTextDocument(event => {
+        if (event.document.languageId === 'banglascript') {
+            (0, diagnosticProvider_1.updateDiagnostics)(event.document, diagnosticCollection);
+        }
+    }), vscode.workspace.onDidOpenTextDocument(document => {
+        if (document.languageId === 'banglascript') {
+            (0, diagnosticProvider_1.updateDiagnostics)(document, diagnosticCollection);
+        }
+    }), vscode.window.onDidChangeActiveTextEditor(editor => {
+        if (editor && editor.document.languageId === 'banglascript') {
+            (0, diagnosticProvider_1.updateDiagnostics)(editor.document, diagnosticCollection);
+        }
+    }));
+    // ==================== COMMANDS ====================
     const helloWorldCommand = (0, commands_1.createHelloWorldCommand)();
     const docsCommand = (0, commands_1.createDocsCommand)();
-    // Push to context
-    context.subscriptions.push(hoverProvider, helloWorldCommand, docsCommand);
+    const newFileCommand = (0, commands_1.createNewFileCommand)();
+    const runFileCommand = (0, commands_1.createRunFileCommand)();
+    const keywordRefCommand = (0, commands_1.createKeywordReferenceCommand)();
+    const convertLineCommand = (0, codeActionProvider_1.registerConvertLineCommand)();
+    const convertDocCommand = (0, codeActionProvider_1.registerConvertDocumentCommand)();
+    // ==================== PUSH TO CONTEXT ====================
+    context.subscriptions.push(hoverProvider, completionProvider, signatureProvider, codeActionProvider, helloWorldCommand, docsCommand, newFileCommand, runFileCommand, keywordRefCommand, convertLineCommand, convertDocCommand);
+    console.log('✅ BanglaScript extension activated with all features!');
 }
-function deactivate() { }
+// Update status bar visibility
+function updateStatusBar() {
+    const editor = vscode.window.activeTextEditor;
+    if (editor && editor.document.languageId === 'banglascript') {
+        statusBarItem.show();
+    }
+    else {
+        statusBarItem.hide();
+    }
+}
+function deactivate() {
+    if (statusBarItem) {
+        statusBarItem.dispose();
+    }
+    console.log('👋 BanglaScript extension deactivated');
+}
 //# sourceMappingURL=extension.js.map
